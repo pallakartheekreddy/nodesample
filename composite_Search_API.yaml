@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  title: Composite Search API
+  description: >-
+    The Composite Search APIs allow you to search the Content, assets and
+    Assesment on the Sunbird platform.
+    
+    
+    The URL for Composite Search API(s) is /composite/v3/search.
+  version: 1.0.0
+servers:
+  - url: 'http://{{host}}'
+tags:
+  - name: Positive
+  - name: Positive > Content Search
+  - name: Positive > Assessment Search
+  - name: Positive > Asset Search
+  - name: Negative
+  - name: Negative > 500 Server Error
+paths:
+  /action/composite/v3/search:
+    post:
+      tags:
+        - Negative
+      summary: 400 - Mandatory fields missing
+      description: >-
+        This API is associated with batch creation
+
+        The endpoint for Creates a Batch is /batch/create
+
+        The fields marked with an asterisk (*) are mandatory. They cannot be
+        null or empty.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                request: {}
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: X-Authenticated-User-token
+          in: header
+          schema:
+            type: string
+          example: '{{keycloak_access_token}}'
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{kong_api_key}}'
+        - name: X-Channel-Id
+          in: header
+          schema:
+            type: string
+          example: '{{channel_id}}'
+      responses:
+        '400':
+          description: Successful response
+          content:
+            application/json: {}
